@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -77,7 +78,6 @@ def thank_you():
     '''
     return thank_you_page
 
-
 # Función para guardar las respuestas en un archivo CSV
 def save_responses(name, q1, q2, q3, q4, q5, q6, q7):
     # Verifica si el archivo CSV ya existe
@@ -91,6 +91,42 @@ def save_responses(name, q1, q2, q3, q4, q5, q6, q7):
     new_data = pd.DataFrame([[name, q1, q2, q3, q4, q5, q6, q7]], 
                             columns=['Nombre', 'Pregunta 1', 'Pregunta 2', 'Pregunta 3', 'Pregunta 4', 'Pregunta 5', 'Pregunta 6', 'Pregunta 7'])
     new_data.to_csv(file_path, mode='a', header=False, index=False)
+
+# Nueva ruta de administrador para descargar CSV y visualizar gráficos
+@app.route('/admin', methods=['GET'])
+def admin():
+    return render_template('admin.html')
+
+# Ruta para descargar el archivo CSV
+@app.route('/download')
+def download_file():
+    file_path = 'data/responses.csv'
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        return "El archivo CSV no existe aún."
+
+# Ruta para generar gráficos de las respuestas
+@app.route('/generate_graph')
+def generate_graph():
+    file_path = 'data/responses.csv'
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+
+        # Crear un gráfico simple con las respuestas de la primera pregunta
+        plt.figure(figsize=(10,6))
+        df['Pregunta 1'].value_counts().plot(kind='bar', color='c')
+        plt.title('Distribución de respuestas: ¿Qué tan seguido compras productos de marcas conocidas?')
+        plt.xlabel('Respuesta')
+        plt.ylabel('Frecuencia')
+
+        graph_path = 'static/graph.png'
+        plt.savefig(graph_path)
+        plt.close()
+
+        return render_template('graph.html', graph=graph_path)
+    else:
+        return "No hay datos suficientes para generar un gráfico."
 
 if __name__ == '__main__':
     app.run(debug=True)
