@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Clasificación de Consumidores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #00FF00;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #1F1F1F;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px #00FF00;
+            display: inline-block;
+            text-align: left;
+            width: 300px;
+        }
+        label {
+            font-size: 1.2rem;
+            color: #00FFFF;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background-color: #333333;
+            color: #FFFFFF;
+        }
+        button {
+            background-color: #00FF00;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #00FFFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clasificación de Consumidores</h1>
+    <form method="POST">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="q1">¿Qué tan seguido compras productos de marcas conocidas? (1-5):</label>
+        <input type="number" id="q1" name="q1" min="1" max="5" required>
+
+        <label for="q2">¿Cuánto tiempo tardas en decidir una compra? (1-5):</label>
+        <input type="number" id="q2" name="q2" min="1" max="5" required>
+
+        <label for="q3">¿Qué tanto influyen las opiniones de otros en tus decisiones de compra? (1-5):</label>
+        <input type="number" id="q3" name="q3" min="1" max="5" required>
+
+        <label for="q4">¿Sueles buscar ofertas o descuentos antes de comprar? (1-5):</label>
+        <input type="number" id="q4" name="q4" min="1" max="5" required>
+
+        <label for="q5">¿Qué tan dispuesto estás a probar nuevas marcas? (1-5):</label>
+        <input type="number" id="q5" name="q5" min="1" max="5" required>
+
+        <label for="q6">¿Cuánto influye la publicidad en tus decisiones de compra? (1-5):</label>
+        <input type="number" id="q6" name="q6" min="1" max="5" required>
+
+        <label for="q7">¿Qué importancia le das a la calidad del producto? (1-5):</label>
+        <input type="number" id="q7" name="q7" min="1" max="5" required>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
